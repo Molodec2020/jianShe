@@ -25,8 +25,7 @@ def printmn():
     my_sum = 0
     for i in a:
         my_sum += float(i)
-        print(i)
     print(round(my_sum - (my_sum * 13 / 100), 2))
-    print(my_sum)
+    print('До вычета налога:', my_sum)
 
 printmn()
