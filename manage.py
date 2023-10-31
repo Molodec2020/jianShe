@@ -41,7 +41,7 @@ class JianShe:
         name = input('Наименование заказа: ')
         count = input('Количество сделанного: ')
         prim = input('Примечание: ')
-        myday = [data, smena, doskolkismena, name, count, prim, self.zp(prim, count), ]
+        myday = [data, smena, doskolkismena, name, count, prim, self.zp(prim, count), self.planjianshe]
 
         with sq.connect('jianShe.db') as con:
             cur = con.cursor()
@@ -101,7 +101,6 @@ dannie = input('Выберите действие: д - Добавить дан�
 while dannie != "в":
     if dannie == "д":
         js.updatetable()
-        break
     elif dannie == "п":
         js.readtable()
         break
