@@ -2,7 +2,7 @@ import sqlite3 as sq
 
 
 def func_decorator(func):
-    # декоратор, который подключается к базе и выполняет функцию func.
+    # декоратор, который подключается к базе и выполняет принимаемую функцию func.
     def connect_bd(*args, **kwargs):
         with sq.connect('jianShe.db') as con:
             cur = con.cursor()
@@ -41,3 +41,7 @@ if val[0].lower() == 'з':
     printmn()
 elif val[0].lower() == 's':
     create_table()
+
+# INSERT INTO nachisleniya(mounth, dateAvans, avans) VALUES ('октябрь', '25,10,2023', 13841.09)
+# INSERT INTO nachisleniya(dateOficial, oficial) VALUES ('25,10,2023', 13841.09)
+# INSERT INTO nachisleniya(dateNeOficial, neOficial) VALUES ('25,10,2023', 13841.09)

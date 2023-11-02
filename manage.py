@@ -62,9 +62,9 @@ class JianShe:
     # Функция которая возвращает подсчет з/п
     def zp(self, prim:str, count):
         if prim[0].lower() == 'к':
-            return float(count) * 0.02 + 1364
+            return float(count) * 0.02 + 1364 if count != 0 else 1364
         elif prim[0].lower() == 'п':
-            return self.planpechat * 0.02 + (count - self.planpechat) * 0.05 + 1818
+            return self.planpechat * 0.02 + (count - self.planpechat) * 0.05 + 1818 if count != 0 else 1818
         return None
 
 
@@ -95,12 +95,20 @@ class JianShe:
 
 js = JianShe()
 
-dannie = input('Выберите действие: д - Добавить данные, п - Прочитать данные, с - Создать таблицу, в - Выход, у - Удалить, зп: ')
+dannie = input('''Выберите действие: 
+д - Добавить данные, 
+п - Прочитать данные, 
+с - Создать таблицу, 
+в - Выход, 
+у - Удалить, 
+зп: ''')
+
 
 # Основной цикл программы
 while dannie != "в":
     if dannie == "д":
         js.updatetable()
+        break
     elif dannie == "п":
         js.readtable()
         break
@@ -114,6 +122,12 @@ while dannie != "в":
         js.money()
         break
     else:
-        print("Вы ввели неверное значение")
-        dannie = input('''Выберите действие: д - Добавить данные, 
-        п - Прочитать данные, с - Создать таблицу, в - Выход: ''')
+        print("Вы ввели неверное значение", '********************************', sep='\n')
+
+    dannie = input('''Выберите действие: 
+д - Добавить данные, 
+п - Прочитать данные, 
+с - Создать таблицу, 
+в - Выход, 
+у - Удалить, 
+зп: ''')
