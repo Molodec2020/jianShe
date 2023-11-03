@@ -2,6 +2,7 @@ import sqlite3 as sq
 
 # 26.10.2023 | День/ночь | До скольки рабочий день/ночь | Наименование | кол-во | примечание | примерная зп
 
+
 class JianShe:
     def __init__(self):
         self.planjianshe = 40910
@@ -9,15 +10,17 @@ class JianShe:
         self.count = 0
 
 
-    # Функция которая возвращает на каком агрегате работал
+
     def agregat(self, kakoy:str):
+        '''Функция, которая возвращает на каком агрегате работал'''
         if kakoy[0].lower() == 'к':
             return self.planjianshe
         elif kakoy[0].lower() == 'п':
             return self.planpechat
 
-    # Функция создания новой таблицы
+
     def createtable(self):
+        '''Функция создания новой таблицы'''
         with sq.connect('jianShe.db') as con:
             cur = con.cursor()
             cur.execute('''CREATE TABLE jianSheTable(
@@ -33,13 +36,14 @@ class JianShe:
         print('Create table')
 
 
-    # Функция обновления таблицы
+
     def updatetable(self):
+        '''Функция обновления таблицы'''
         data = input('Введите дату: ')
         smena = input('День/ночь: ')
         doskolkismena = input('До скольки смена: ')
         name = input('Наименование заказа: ')
-        count = input('Количество сделанного: ')
+        count = int(input('Количество сделанного: '))
         prim = input('Примечание: ')
         myday = [data, smena, doskolkismena, name, count, prim, self.zp(prim, count), self.planjianshe]
 
@@ -49,18 +53,20 @@ class JianShe:
         print("Обновлено")
 
 
-    # Функция чтения данных из таблицы
-    def readtable(self):
+
+    def readtable(self, date: str):
+        '''Функция чтения данных из таблицы'''
         with sq.connect('jianShe.db') as con:
             cur = con.cursor()
-            cur.execute('SELECT * FROM jianSheTable')
+            cur.execute(f'SELECT * FROM jianSheTable WHERE date = "{date}"')
             x = cur.fetchall()
             for i in x:
                 print(i)
 
 
-    # Функция которая возвращает подсчет з/п
+
     def zp(self, prim:str, count):
+        '''Функция, которая возвращает подсчет з/п'''
         if prim[0].lower() == 'к':
             return float(count) * 0.02 + 1364 if count != 0 else 1364
         elif prim[0].lower() == 'п':
@@ -68,8 +74,9 @@ class JianShe:
         return None
 
 
-    # Функция примерного подсчета з/п
+
     def money(self):
+        '''Функция примерного подсчета з/п'''
         with sq.connect('jianShe.db') as con:
             cur = con.cursor()
             cur.execute('SELECT count FROM jianSheTable')
@@ -85,8 +92,9 @@ class JianShe:
             print(a)
 
 
-    # Функция удаления строки из таблицы
+
     def deletetable(self):
+        '''Функция удаления последней строки из таблицы'''
         with sq.connect('jianShe.db') as con:
             cur = con.cursor()
             vsl = input("Введите дату: ")
@@ -110,7 +118,8 @@ while dannie != "в":
         js.updatetable()
         break
     elif dannie == "п":
-        js.readtable()
+        date = str(input('Введите дату: '))
+        js.readtable(date)
         break
     elif dannie == "с":
         js.createtable()
@@ -131,3 +140,5 @@ while dannie != "в":
 в - Выход, 
 у - Удалить, 
 зп: ''')
+
+
