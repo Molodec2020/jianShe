@@ -14,7 +14,8 @@ def func_decorator(func):
 
 @func_decorator
 def print_money():
-    return 'SELECT zp FROM jianSheTable'
+    month = input('Введите номер месяца: ')
+    return f'SELECT zp FROM jianSheTable WHERE date LIKE "%.{month}.%"'
 
 
 @func_decorator
