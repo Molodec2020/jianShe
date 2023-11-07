@@ -2,7 +2,7 @@ import sqlite3 as sq
 
 
 def func_decorator(func):
-    # декоратор, который подключается к базе и выполняет принимаемую функцию func.
+    """Декоратор, который подключается к базе и выполняет принимаемую функцию func."""
     def connect_bd(*args, **kwargs):
         with sq.connect('jianShe.db') as con:
             cur = con.cursor()
@@ -14,16 +14,13 @@ def func_decorator(func):
 
 @func_decorator
 def print_money():
+    """Функция возвращает список с зп за каждый день конкретного месяца"""
     month = input('Введите номер месяца: ')
     return f'SELECT zp FROM jianSheTable WHERE date LIKE "%.{month}.%"'
 
 
-@func_decorator
-def print_date():
-    return 'SELECT date FROM jianSheTable'
-
 def printmn():
-    # Печатает примерную зп за весь месяц
+    """Печатает примерную зп за весь месяц"""
     a = print_money()
     my_sum = 0
     for i in a:
@@ -33,6 +30,7 @@ def printmn():
 
 @func_decorator
 def create_table():
+    """Функция для любого SQL запроса"""
     return input('Введи SQL команду: ')
 
 
