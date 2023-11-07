@@ -11,7 +11,7 @@ class JianShe:
 
 
 
-    def agregat(self, kakoy:str):
+    def agregat(self, kakoy: str):
         '''Функция, которая возвращает на каком агрегате работал'''
         if kakoy[0].lower() == 'к':
             return self.planjianshe
@@ -45,11 +45,13 @@ class JianShe:
         name = input('Наименование заказа: ')
         count = int(input('Количество сделанного: '))
         prim = input('Примечание: ')
-        myday = [data, smena, doskolkismena, name, count, prim, self.zp(prim, count), self.planjianshe]
+        myday = [data, smena, doskolkismena, name, count, prim, self.zp(prim, count), self.planjianshe, None]
 
         with sq.connect('jianShe.db') as con:
             cur = con.cursor()
-            cur.execute('INSERT INTO jianSheTable VALUES (?, ?, ?, ?, ?, ?, ?, ?)', myday)
+            cur.execute('INSERT INTO jianSheTable VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', myday)
+
+        print(f'Примерная зп за день: {round(self.zp(prim, count))}')
         print("Обновлено")
 
 
